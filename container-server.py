@@ -119,7 +119,7 @@ curl -s -X DELETE -H 'Content-Type: application/json' http://localhost:8080/cont
     containers = docker_ps_to_array(output)
    
     for x in containers:
-      #docker('stop', x['id'])
+      docker('stop', x['id'])
       print x['id']
 
     resp = json.dumps(containers)
@@ -136,7 +136,7 @@ curl -s -X DELETE -H 'Content-Type: application/json' http://localhost:8080/imag
     images = docker_images_to_array(output)
 
     for x in images:
-      #docker('rmi', '-f', x['id'])
+      docker('rmi', '-f', x['id'])
       print x['id']
 
     resp = json.dumps(images)
@@ -197,7 +197,7 @@ def containers_update(id):
     try:
         state = body['state']
         if state == 'running':
-            docker('restart', id)
+            docker('stop', id)
         elif state == 'stopped':
             docker('restart', id)
     except:
